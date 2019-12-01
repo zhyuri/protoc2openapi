@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "proto/annotations.proto";
+import "google/api/annotations.proto";
+
+package openapi.simplerestful;
+
+service PetStoreService {
+    // Mark a browser tab.
+    rpc AddPet (AddPetRequest) returns (AddPetResponse) {
+        option (google.api.http) = {
+            post: "/pet"
+            body: "*"
+        };
+    };
+}
+
+enum PetType {
+    Unknown = 0;
+    Dog = 1;
+    Cat = 2;
+}
+
+message AddPetRequest {
+    string name = 1;
+    PetType type = 2;
+    int32 age = 3;
+}
+
+// Response if successfully added a tab
+message AddPetResponse {
+    string id = 1;
+}
