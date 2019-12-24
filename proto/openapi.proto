@@ -12,7 +12,8 @@ message OpenAPI {
     Components components = 4;
     repeated SecurityRequirement security = 5;
     repeated Tag tags = 6;
-    map<string, google.protobuf.Value> extensions = 7;
+    ExternalDocs externalDocs = 7;
+    map<string, google.protobuf.Value> extensions = 8;
 }
 
 message Operation {
@@ -193,9 +194,8 @@ message Tag {
 }
 
 message ExternalDocs {
-    string name = 1;
+    string description = 1;
     string url = 2;
-    map<string, google.protobuf.Value> extensions = 3;
 }
 
 message SecurityRequirement {
