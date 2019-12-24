@@ -5,12 +5,60 @@ import "google/api/annotations.proto";
 
 package openapi.simplerestful;
 
+option (protoc2openapi.options.openapi) = {
+    info: {
+        version: "1.0.0",
+        title: "A Simple restful API";
+        description: "Simple description for this incredible tool";
+        contact: {
+            name: "exampleUser";
+            url: "https://www.example.com";
+            email: "dev@example.com";
+        };
+        license: {
+            name: "example license";
+            url: "https://www.example.com/license";
+        };
+    };
+    servers: {
+        url: "https://api.example.com";
+        description:"An example API server";
+    };
+    servers: {
+        url: "https://api.stage.example.com";
+        description:"An example API server for beta stage";
+    };
+    tags: {
+        name: "demo";
+        description: "A simple tag";
+    };
+    tags: {
+        name: "another-demo";
+        description: "Another simple tag";
+    };
+};
+
 service PetStoreService {
-    // Mark a browser tab.
-    rpc AddPet (AddPetRequest) returns (AddPetResponse) {
+    rpc AddPet (PetRequest) returns (PetResponse) {
         option (google.api.http) = {
             post: "/pet"
             body: "*"
+        };
+        option (protoc2openapi.options.operation) = {
+            summary: "Add new pet"
+            deprecated: true
+            extensions: {
+                key: "x-dummy-extensions";
+                value {
+                    string_value: "dummy";
+                }
+            }
+        };
+    };
+
+    rpc FindPet (PetRequest) returns (PetResponse) {
+        option (google.api.http) = {
+            get: "/v1/example/pet/{name}"
         };
     };
 }
@@ -21,13 +69,13 @@ enum PetType {
     Cat = 2;
 }
 
-message AddPetRequest {
+message PetRequest {
     string name = 1;
     PetType type = 2;
     int32 age = 3;
 }
 
-// Response if successfully added a tab
-message AddPetResponse {
+message PetResponse {
     string id = 1;
 }
+

@@ -24,6 +24,7 @@ build: generate
 .PHONY: test
 test: build
 	mkdir -p $(OUTPUT_DIR)/openapi/
+	@PATH=$(PATH):$(BIN_DIR) \
 	$(PROTOC) \
 		$(PROTO_INCLUDES) \
 	    --openapi_out=$(OUTPUT_DIR)/openapi/ \
