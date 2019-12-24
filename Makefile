@@ -10,12 +10,14 @@ PROTO_INCLUDES := \
 	-I third_party/googleapis \
 	-I proto \
 	-I .
-PROTO_OUTPUT := ${OUTPUT_DIR}/proto-gen
 
 default: build
 
+generate:
+	(cd ./proto && make generate)
+
 .PHONY: build
-build:
+build: generate
 	mkdir -p $(BIN_DIR)
 	go build -o $(BIN) main.go
 
@@ -29,3 +31,4 @@ test: build
 
 clean:
 	rm -rf build/*
+	(cd ./proto && make clean)

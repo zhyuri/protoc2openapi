@@ -1,22 +1,22 @@
 syntax = "proto3";
 
-package protoc2openapi;
+package protoc2openapi.options;
 
 import "google/protobuf/descriptor.proto";
-import "proto/openapi.proto";
+import "openapi.proto";
 
 extend google.protobuf.FileOptions {
     OpenAPI openapi = 1042;
 }
 
 extend google.protobuf.MethodOptions {
-    Operation openapi_operation = 1042;
+    Operation operation = 1042;
 }
 
 extend google.protobuf.MessageOptions {
-    Schema openapi_schema = 1042;
+    Schema schema = 1042;
 }
 
 extend google.protobuf.FieldOptions {
-    JSONSchema openapi_field = 1042;
+    JSONSchema field = 1042;
 }
